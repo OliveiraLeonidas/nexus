@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       navigate('/dashboard')
     } catch (error) {
-      console.timeLog('Login failed: ', error);
+      console.log('Login failed: ', error);
     } finally {
       setIsLoading(false);
     }
@@ -69,10 +69,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider
     value={{
-      user, isLoading,
-      login, logout,
+      user, 
+      isLoading,
+      login, 
+      logout,
       isAuthenticated: !!user,
-      hasPermission
+      hasPermission,
     }}>
       {children}
     </AuthContext.Provider>
