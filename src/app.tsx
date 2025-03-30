@@ -1,12 +1,25 @@
 import { ThemeProvider } from "./context/ThemeContext"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { AuthProvider, useAuth } from "./components/auth/AuthContext"
-import type { ProtectedRouteProps } from "./types"
+import { ProtectedRouteProps } from "./types"
+import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import { TooltipProvider } from "./components/ui/tooltip"
+import { Toaster } from "./components/ui/toaster"
+import {Toaster as Sonner} from '@/components/ui/sonner'
 
 //pages routes
 import Login from "./pages/Login"
 import Index from "./pages/Index"
-import NotFound from "./pages/Not-found"
+import NotFound from "./pages/NotFound"
+import Settings from "./pages/Settings"
+import Appointments from "./pages/Appointments"
+import Patients from "./pages/Patients"
+import Prescriptions from "./pages/Prescription"
+import Procedures from "./pages/Procedures"
+import Records from "./pages/Records"
+import Dashboard from "./pages/Dashboard"
+
+const queryClient = new QueryClient()
 
 const ProtectedRoute = ({ element, requiredRoles }: ProtectedRouteProps) => {
   const { isAuthenticated, hasPermission, isLoading } = useAuth();
@@ -37,9 +50,9 @@ const AppRoutes = () => {
       {/* Protected routes */}
       <Route 
         path="/dashboard" 
-        element={<ProtectedRoute element={<Index />} requiredRoles={["admin", "dentist", "patient"]} />} 
+        element={<ProtectedRoute element={<Dashboard />} requiredRoles={["admin", "dentist", "patient"]} />} 
       />
-      {/* <Route 
+      <Route 
         path="/patients" 
         element={<ProtectedRoute element={<Patients />} requiredRoles={["admin", "dentist"]} />} 
       />
@@ -74,9 +87,9 @@ const AppRoutes = () => {
       <Route 
         path="/settings" 
         element={<ProtectedRoute element={<Settings />} requiredRoles={["admin"]} />} 
-      /> */}
+      />
       
-      {/* Catch-all route for 404 */}
+      {/*not found route for 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
@@ -85,15 +98,20 @@ const AppRoutes = () => {
 
 
 function App() {
-  return (    
-  <BrowserRouter>
-    <ThemeProvider>
-      <AuthProvider>
-        <Login></Login>
-      {/* <Index /> */}
-      </AuthProvider>
-    </ThemeProvider>
-  </BrowserRouter>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+      <Toaster />
+      < Sonner/>
+      <BrowserRouter>
+        <ThemeProvider>
+          <AuthProvider>
+            <AppRoutes/>
+          </AuthProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   )
 }
 

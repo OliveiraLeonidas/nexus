@@ -63,7 +63,6 @@ const Index = () => {
       icon: Lock
     }
   ];
-  console.log(features)
   return (
 <div className="min-h-screen flex flex-col animate-fade-in">
       <header className="py-4 px-6 md:px-8 lg:px-12 border-b bg-transparent sticky top-0 z-50 backdrop-blur-md">
@@ -74,7 +73,7 @@ const Index = () => {
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <Button asChild variant="outline" className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm">
-              <Link to="/login">Sign In</Link>
+              <Link to="/login">Entrar</Link>
             </Button>
           </div>
         </div>
@@ -91,7 +90,7 @@ const Index = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
-                to="/dashboard"
+                to="/login"
                 className="px-6 py-3 rounded-lg bg-dental-600 hover:bg-dental-700 text-white font-medium flex items-center justify-center gap-2 transition-colors"
               >
                 Iniciar agora
@@ -101,7 +100,7 @@ const Index = () => {
                 to="/contact"
                 className="px-6 py-3 rounded-lg border hover:bg-muted flex items-center justify-center gap-2 transition-colors"
               >
-                Saber mais
+                Saiba mais
               </Link>
             </div>
           </div>
